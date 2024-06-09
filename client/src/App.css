@@ -1,0 +1,8 @@
+.wrap {
+  display: flex;
+}
+
+.content {
+  width:68%;
+  margin: 0 6% 0 25.69%;
+}
