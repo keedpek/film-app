@@ -4,8 +4,8 @@ import { Group, Select, MultiSelect } from '@mantine/core';
 const Movies = () => {
   const mokgenres = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy' , 'History' , 'Horror' , 'Music' , 'Mystery' , 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western']
   const mokyears = []
-  for (let i = 1874; i < 2116; i++) mokyears.push(`${i}`)
-  console.log(mokyears);
+  for (let i = 1874; i < 2024; i++) mokyears.push(`${i}`)
+  
 
   return (
     <div>

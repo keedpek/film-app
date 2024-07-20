@@ -10,11 +10,11 @@ const buildApiUrl = (path, queryParams = {}) => {
 async function MovieListController(req, res) {
   const url = buildApiUrl(process.env.MOVIE_LIST_ENDPOINT, req.query);
   try {
-    const data = await fetch(url)
-    .then(res => res.json())
-    return data
+    const response = await fetch(url)
+    const data = await response.json()
+    return res.json(data)
   } catch (err) {
-    console.log(err)
+    return {error: 'Failed to fetch movies'}
   }
 } 
 
@@ -23,24 +23,23 @@ async function MovieDetailsController(req, res) {
   const {id} = req.params;
   const url = buildApiUrl(`${process.env.MOVIE_DETAILS_ENDPOINT}${id}`, {append_to_response: 'videos'});
   try {
-    const data = await fetch(url)
-    .then(res => res.json())
-    return data
+    const response = await fetch(url)
+    const data = await response.json()
+    return res.json(data)
   } catch (err) {
-    console.log(err)
+    return {error: 'Failed to fetch movie details'}
   }
 } 
 
 
 async function GenresController(req, res) {
-  const url = buildApiUrl(process.env.GENRES_LIST_ENDPOINT);
+  const url = buildApiUrl(process.env.GENRES_LIST_ENDPOINT, req.query);
   try {
-    const data = await fetch(url)
-    .then(res => res.json())
-    console.log(data);  
-    return data
+    const response = await fetch(url)
+    const data = await response.json() 
+    return res.json(data)
   } catch (err) {
-    console.log(err)
+    return {error: 'Failed to fetch genres list'}
   }
 } 
 
