@@ -1,20 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import AppRouter from "./routes/AppRouter";
-import { Navbar } from "./components/NavBar/NavBar";
+import { fetchGenres } from "http/moviesAPI";
 import "./App.css"
-import { observer } from "mobx-react-lite";
+import { setGenres, setRatedMovies } from "store/Slices/movieSlice";
 
-const App = observer(() => {
+const App = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    fetchGenres().then(data => {
+      dispatch(setGenres(data.genres))
+    })
+    dispatch(setRatedMovies(localStorage.getItem('rated_movies')))
+  }, [])
+
   return (
-      <BrowserRouter>
-        <div className="wrap">
-          <Navbar/>
-          <div className="content">
-            <AppRouter/>
-          </div>
-        </div>
-      </BrowserRouter>
+    <BrowserRouter>
+      <AppRouter/>
+    </BrowserRouter>
   );
-})
+}
 
 export default App;

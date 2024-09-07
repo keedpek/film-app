@@ -1,23 +1,19 @@
-import React, {createContext} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import '@mantine/core/styles.css';
 import { MantineProvider } from "@mantine/core";
-import AppStore from "./store/AppStore"
+import { Provider } from 'react-redux';
+import { store } from 'store';
 
-export const Context = createContext(null)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <MantineProvider>
-    <React.StrictMode>
-      <Context.Provider value = {
-        {
-          store: new AppStore(),
-        }
-      }>
+  <Provider store={store}>
+    <MantineProvider>
+      <React.StrictMode>
         <App />
-      </Context.Provider>
-    </React.StrictMode>
-  </MantineProvider>
+      </React.StrictMode>
+    </MantineProvider>
+  </Provider>
 );

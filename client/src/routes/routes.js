@@ -1,7 +1,7 @@
 import { MOVIES_ROUTE, MOVIE_ROUTE, RATED_MOVIES_ROUTE } from "../utils/consts";
-import Movies from "../pages/MoviesList/MoviesList"
-import Movie from "../pages/MoviePage"
-import RatedMovies from "../pages/RatedMovies"
+import Movies from "pages/MoviesPage"
+import Movie from "pages/MovieDetailsPage"
+import RatedMovies from "pages/RatedMovies"
 
 export const routes = [
   {

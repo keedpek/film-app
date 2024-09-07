@@ -3,7 +3,6 @@ import {Routes, Route} from "react-router-dom";
 import { routes } from "./routes";
 import NotFound from "../pages/NotFound";
 
-
 const AppRouter = () => {
   return (
     <Routes>

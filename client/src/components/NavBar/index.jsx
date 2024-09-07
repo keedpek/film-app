@@ -1,7 +1,7 @@
 import { Group } from '@mantine/core';
 import classes from './NavBar.module.css';
 import { useLocation } from 'react-router-dom';
-import logo from '../../assets/logo.svg'
+import logo from 'assets/logo.svg'
 
 
 const data = [
@@ -10,7 +10,7 @@ const data = [
 ];
 
 
-export const Navbar = () => {
+const Navbar = () => {
   const location = useLocation()
 
   const links = data.map((item) => (
@@ -28,10 +28,12 @@ export const Navbar = () => {
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} >
-          <img src={logo} alt=''/>
+          <img className={classes.logo} src={logo} alt=''/>
         </Group>
         {links}
       </div>
     </nav>
   );
 }
+
+export default Navbar

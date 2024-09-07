@@ -1,8 +1,12 @@
-.wrap {
-  display: flex;
+* {
+  font-family: "Inter", sans-serif;
 }
 
-.content {
-  width:68%;
-  margin: 0 6% 0 25.69%;
+body {
+  background-color: #f5f5f5 !important;
+  height: 100vh;
+}
+
+#root {
+  height: 100% !important;
 }

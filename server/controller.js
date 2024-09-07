@@ -21,7 +21,7 @@ async function MovieListController(req, res) {
 
 async function MovieDetailsController(req, res) {
   const {id} = req.params;
-  const url = buildApiUrl(`${process.env.MOVIE_DETAILS_ENDPOINT}${id}`, {append_to_response: 'videos'});
+  const url = buildApiUrl(`${process.env.MOVIE_DETAILS_ENDPOINT}${id}`, {...req.query, append_to_response: 'videos'});
   try {
     const response = await fetch(url)
     const data = await response.json()
