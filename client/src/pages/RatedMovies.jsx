@@ -17,11 +17,14 @@ const RatedMovies = () => {
   const movies = useSelector(state => state.movie.ratedMovies)
 
   useEffect(() => {
-    setIsLoaded(false)
-    //get rated movies from localStorage
-    //setTotalPages(Math.floor(movies.length / 4))
-    setIsLoaded(true)
-  }, [])
+    if (movies && movies.length > 0) {
+      setIsLoaded(true)
+      setTotalPages(Math.ceil(movies.length / 4))
+    }
+    else {
+      setIsLoaded(false)
+    }
+  }, [movies])
 
   const changePageHandler = (value) => {
     setCurrentPage(value)
@@ -31,17 +34,19 @@ const RatedMovies = () => {
     <>
       <NavBar />
       <Flex h='fit-content' direction='column' p='1% 6%' ml='19.4%' gap='24px'>
-        {isLoaded && true /*movies.length === 0*/ ? (
+        {!isLoaded ? (
           <Stack align='center' justify='center' h={'100vh'}>
             <EmptyState icon={emptyStateIcon} text="You haven't rated any films yet"/>
             <Button w={'15%'} color='#9854F6' radius='8px' onClick={() => {navigate('/')}} >Find Movies</Button>
           </Stack>
         ) : (
           <>
-            <MovieList movies={movies} isLoaded={false}/>
-            <Group justify='flex-end'>
-              <CustomPagination total={totalPages} value={currentPage} onChange={changePageHandler}/>
-            </Group>
+            <MovieList movies={movies.slice(4 * (currentPage - 1), 4 * currentPage)} isLoaded={isLoaded}/>
+            {totalPages > 1 && 
+              <Group justify='flex-end'>
+                <CustomPagination total={totalPages} value={currentPage} onChange={changePageHandler}/>
+              </Group>
+            }
           </>
         )
         }

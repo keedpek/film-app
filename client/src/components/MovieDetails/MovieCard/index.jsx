@@ -6,9 +6,21 @@ import yellowStar from 'assets/yellowStar.svg'
 import grayStar from 'assets/grayStar.svg'
 import purpleStar from 'assets/purpleStar.svg'
 import posterPlaceholder from 'assets/posterPlaceholder.svg'
+import { Image } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import RatingModal from 'components/RatingModal';
+import { useSelector } from 'react-redux';
 
 
 const MovieCard = ({movie}) => {
+  const ratedMovie = useSelector(state => state.movie.ratedMovies.find(item => item.id === movie.id))
+
+  const [opened, {open, close}] = useDisclosure(false)
+
+  const rateClickHandler = () => {
+    open()
+  }
+  
   return (
     <div className={classes.wrapper}>
       <div className={classes.content}>
@@ -51,9 +63,17 @@ const MovieCard = ({movie}) => {
           </div>
         </div>
       </div>
-      <button className={classes.rateBtn} onClick={() => {alert()}}>
-        <img src={grayStar || purpleStar} alt=''/>
+      <button className={classes.rateBtn} onClick={rateClickHandler}>
+          <Image src={ratedMovie ? purpleStar : grayStar} />
       </button>
+      {ratedMovie && <span>{ratedMovie.user_rate}</span>}
+
+      <RatingModal 
+        opened={opened} 
+        onClose={close} 
+        movie={movie} 
+        defaultRating={ratedMovie ? ratedMovie.user_rate : 0}
+      />
     </div>
   );
 };

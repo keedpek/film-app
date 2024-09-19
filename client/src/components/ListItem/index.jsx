@@ -10,12 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import { formatGenresByID, formatVoteCount, getImage } from 'utils/functions';
 import { useDisclosure } from '@mantine/hooks';
 import RatingModal from 'components/RatingModal';
+import { useSelector } from 'react-redux';
 
-const ListItem = ({movie, ratedMovie, updateRatedMovies, ratedMovies}) => {
+const ListItem = ({movie}) => {
   const navigate = useNavigate()
   
   const [opened, {open, close}] = useDisclosure(false)
   
+  const ratedMovie = useSelector(state => state.movie.ratedMovies.find(item => item.id === movie.id))
+
   const clickHandler = () => {
     navigate(MOVIE_ROUTE + '/' + movie.id)
   }
@@ -60,8 +63,6 @@ const ListItem = ({movie, ratedMovie, updateRatedMovies, ratedMovies}) => {
         onClose={close} 
         movie={movie} 
         defaultRating={ratedMovie ? ratedMovie.user_rate : 0}
-        updateRatedMovies={updateRatedMovies}
-        ratedMovies={ratedMovies}
       />
     </div>
   );

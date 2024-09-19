@@ -14,7 +14,7 @@ const App = () => {
     fetchGenres().then(data => {
       dispatch(setGenres(data.genres))
     })
-    dispatch(setRatedMovies(localStorage.getItem('rated_movies')))
+    dispatch(setRatedMovies(JSON.parse(localStorage.getItem('rated_movies'))))
   }, [])
 
   return (
