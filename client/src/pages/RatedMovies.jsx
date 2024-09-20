@@ -45,7 +45,7 @@ const RatedMovies = () => {
           />
         </Group>
         {!isLoaded ? (
-          <Stack align='center' justify='center' h={'100vh'}>
+          <Stack align='center' justify='flex-start' mt='80px'>
             <EmptyState icon={emptyStateIcon} text="You haven't rated any films yet"/>
             <Button w={'15%'} color='#9854F6' radius='8px' onClick={() => {navigate('/')}} >Find Movies</Button>
           </Stack>

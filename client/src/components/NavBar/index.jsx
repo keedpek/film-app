@@ -16,7 +16,7 @@ const Navbar = () => {
   const links = data.map((item) => (
     <a
       className={classes.link}
-      data-active={item.link === location.pathname || undefined}
+      data-active={item.link === location.pathname || (item.link === '/' && location.pathname.includes('movie/')) /*костыль жёсткий, пока лень думать*/ || undefined}
       href={item.link}
       key={item.label}
     >
