@@ -7,24 +7,27 @@ import CustomPagination from 'components/Pagination';
 import emptyStateIcon from 'assets/ratedMoviesEmptyState.svg'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Search from 'components/Search';
 
 
 const RatedMovies = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [totalPages, setTotalPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const [search, setSearch] = useState('')
   const navigate = useNavigate()
   const movies = useSelector(state => state.movie.ratedMovies)
+  const filteredMovies = movies.filter(film => film.title.toLowerCase().includes(search.toLowerCase()))
 
   useEffect(() => {
-    if (movies && movies.length > 0) {
+    if (filteredMovies && filteredMovies.length > 0) {
       setIsLoaded(true)
-      setTotalPages(Math.ceil(movies.length / 4))
+      setTotalPages(Math.ceil(filteredMovies.length / 4))
     }
     else {
       setIsLoaded(false)
     }
-  }, [movies])
+  }, [filteredMovies])
 
   const changePageHandler = (value) => {
     setCurrentPage(value)
@@ -34,6 +37,13 @@ const RatedMovies = () => {
     <>
       <NavBar />
       <Flex h='fit-content' direction='column' p='1% 6%' ml='19.4%' gap='24px'>
+        <Group justify='space-between'>
+          <h1>Rated movies</h1>
+          <Search
+            value={search}
+            onChange={setSearch}
+          />
+        </Group>
         {!isLoaded ? (
           <Stack align='center' justify='center' h={'100vh'}>
             <EmptyState icon={emptyStateIcon} text="You haven't rated any films yet"/>
@@ -41,9 +51,9 @@ const RatedMovies = () => {
           </Stack>
         ) : (
           <>
-            <MovieList movies={movies.slice(4 * (currentPage - 1), 4 * currentPage)} isLoaded={isLoaded}/>
+            <MovieList movies={filteredMovies.slice(4 * (currentPage - 1), 4 * currentPage)} isLoaded={isLoaded}/>
             {totalPages > 1 && 
-              <Group justify='flex-end'>
+              <Group justify='center'>
                 <CustomPagination total={totalPages} value={currentPage} onChange={changePageHandler}/>
               </Group>
             }
